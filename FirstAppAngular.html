@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+   
+   <head>
+	  <title> First  AngularJS Application </title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  
+	  <style>
+         table, th , td {
+            border: 2px solid grey;
+            border-collapse: collapse;
+            padding: 8px;
+         }
+         
+         table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+         }
+         
+         table tr:nth-child(even) {
+            background-color: #ffffff;
+         }
+      </style>
+   </head>
+   
+   <body>
+	<h1>Hadrien VASSILLE CV by AngularJS</h1>
+	 <div ng-app = "mainApp" ng-controller = "personController" ng-init = "studies = [{school:'College Stanislas',period:'2009-2012'}, {school:'Ecole Centrale Marseille',period:'2012-2015'}, {school:'TU Muenchen',period:'2014'}]" >
+         <p>Enter first name: <input type = "text" ng-model = "person.firstName"></p>
+		 <p>Enter last name: <input type = "text" ng-model = "person.lastName"></p>
+         Hello {{person.fullName()}} ! </br></br>
+		 <input type = "checkbox" ng-model = "showHide1">Show Studies</td>
+		 <div ng-show = "showHide1">
+		 <h3>List of Studies from Hadrien Vassille :</h3>
+		 <ul>
+            <li ng-repeat = "study in studies">
+               {{ 'School: ' + study.school + ', Period: ' + study.period }}
+            </li>
+         </ul>
+		 </div>
+		 <td><input type = "checkbox" ng-model = "showHide2">Show Skills</td>
+		 <div ng-show = "showHide2">
+		 <h3>My knowledges<h3>
+		 <table>
+                     <tr>
+                        <th>Name</th>.
+                        <th>Knowledge</th>
+                     </tr>
+                     
+                     <tr ng-repeat = "subject in person.subjects">
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.knowledge }}</td>
+                     </tr>
+							
+                  </table>
+				  
+				 
+		 
+		 
+		
+		 </div>
+		 <h3>Send me your contact</h3>
+		 <form name = "personForm" novalidate>
+            <table border = "0">
+               <tr>
+                  <td>Enter first name:</td>
+                  <td><input name = "givenFirstName" type = "text" ng-model = "givenFirstName" required>
+                     <span style = "color:red" ng-show = "personForm.givenFirstName.$dirty && personForm.givenFirstName.$invalid">
+                        <span ng-show = "personForm.givenFirstName.$error.required">First Name is required.</span>
+                     </span>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td>Enter last name: </td>
+                  <td><input name = "givenLastName"  type = "text" ng-model = "givenLastName" required>
+                     <span style = "color:red" ng-show = "personForm.givenLastName.$dirty && personForm.givenLastName.$invalid">
+                        <span ng-show = "personForm.givenLastName.$error.required">Last Name is required.</span>
+                     </span>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td>Email: </td><td><input name = "givenEmail" type = "email" ng-model = "givenEmail" length = "100" required>
+                     <span style = "color:red" ng-show = "personForm.givenEmail.$dirty && personForm.givenEmail.$invalid">
+                        <span ng-show = "personForm.givenEmail.$error.required">Email is required.</span>
+                        <span ng-show = "personForm.givenEmail.$error.email">Invalid email address.</span>
+                     </span>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td>
+                     <button ng-click = "reset()">Reset</button>
+                  </td>
+                  <td>
+                     <button ng-disabled = "personForm.givenFirstName.$dirty &&
+                        personForm.givenFirstName.$invalid || personForm.givenLastName.$dirty &&
+                        personForm.givenLastName .$invalid || personForm.givenEmail.$dirty &&
+                        personForm.givenEmail.$invalid" ng-click="submit()">Submit</button>
+                  </td>
+               </tr>
+					
+            </table>
+         </form>
+		 
+		 
+		 
+		 <script>
+         var mainApp = angular.module("mainApp", []);
+         
+         mainApp.controller('personController', function($scope) {
+            $scope.person ={
+               firstName: "",
+               lastName: "",
+			   
+			    subjects:[
+                  {name:'Java',knowledge:'++'},
+                  {name:'HTML',knowledge:'+++'},
+                  {name:'CSS',knowledge:'++'},
+                  {name:'Javascript',knowledge:'++'},
+                  {name:'AngularJS',knowledge:'++'},
+				  {name:'Project Engineering',knowledge:'+++'},
+				  {name:'MySQL',knowledge:'++'},
+				  {name:'German',knowledge:'+++'},
+				  {name:'English',knowledge:'+++'},
+				  {name:'VBA',knowledge:'++'},
+				  {name:'Boilers',knowledge:'++'},
+				  {name:'Biomasse',knowledge:'++'},
+				  {name:'Supply Chain Engineering',knowledge:'++'},
+				  {name:'French',knowledge:'+++'},
+				  
+               ],
+               
+               fullName: function() {
+                  var personObject;
+                  personObject = $scope.person;
+                  return personObject.firstName + " " + personObject.lastName;
+               }
+            };
+			$scope.reset = function(){
+         $scope.givenFirstName = "";
+         $scope.givenLastName = "";
+         $scope.givenEmail = "";
+      }   
+		$scope.reset();
+         });
+      </script>
+		 
+		 
+		 
+      </div>
+	  
+	  
+      
+   </body>
+</html>
